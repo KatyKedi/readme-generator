@@ -2,7 +2,7 @@
 const inquirer = require('inquirer');
 const { stubFalse } = require('lodash');
 const fs = require('fs');
-//const generatePage = require('./utils/generateMarkdown.js');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // Create an array of questions for user input
 const questions = [];
@@ -81,7 +81,7 @@ const promptUser = () => {
         },
         {
             type: 'input',
-            name: 'test instructions',
+            name: 'test',
             message: 'Please provide test instructions for your project.',
             validate: nameInput => {
                 if (nameInput) {
@@ -119,17 +119,27 @@ const promptUser = () => {
             } 
         }
     ])
-    .then( readmeData => {
+    .then(readmeData => {
         questions.push(readmeData);
-        console.log(questions);
         return(questions);
     })
 };
 
-promptUser();
+promptUser()
+    .then(questions => {
+        const markdown = generateMarkdown(questions);
+        writeToFile(markdown);
+    });
 
-// TODO: Create a function to write README file
-//function writeToFile(fileName, data) {}
+
+// Create a function to write README file
+function writeToFile(markdown) {
+    fs.writeFile('./README.md', markdown, err => {
+        if (err) throw new Error(err);
+
+        console.log('Page created! Check out README.md in this directory to see it!');
+    });
+}
 
 // TODO: Create a function to initialize app
 //function init() {}
