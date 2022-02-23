@@ -4,8 +4,6 @@ const { stubFalse } = require('lodash');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
-// Create an array of questions for user input
-const questions = [];
 const promptUser = () => {
     return inquirer.prompt([
         {
@@ -64,7 +62,14 @@ const promptUser = () => {
             type: 'list',
             name: 'license',
             message: 'Please select your license.',
-            choices: ['a', 'b', 'c', 'd', 'e']
+            choices: [
+                'MIT License (MIT)', 
+                'Apache License 2.0 (Apache-2.0)',
+                'GNU General Public License (GPL)',
+                'Berkeley Software Distribution License (BSD)',
+                'Internet Systems Consortium License (ISC)',
+                'None',
+                'Other']
         },
         {
             type: 'input',
@@ -120,17 +125,33 @@ const promptUser = () => {
         }
     ])
     .then(readmeData => {
-        questions.push(readmeData);
-        return(questions);
+        console.log(readmeData);
+        return(readmeData);
     })
 };
 
-promptUser()
-    .then(questions => {
-        const markdown = generateMarkdown(questions);
-        writeToFile(markdown);
-    });
-
+const promptLicense = readmeData => {
+    if (readmeData.license === 'Other') {
+        return inquirer.prompt(
+            {
+                type: 'input',
+                name: 'license',
+                message: 'Please enter your license',
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter your license!');
+                        return false;
+                    }
+                } 
+            }
+        ).then(licenseData => {
+            readmeData.license = licenseData.license;
+            return readmeData;
+        })
+    }
+};
 
 // Create a function to write README file
 function writeToFile(markdown) {
@@ -142,7 +163,14 @@ function writeToFile(markdown) {
 }
 
 // TODO: Create a function to initialize app
-//function init() {}
+function init() {
+    promptUser()
+    .then(promptLicense)
+    .then(readmeData => {
+        const markdown = generateMarkdown(readmeData);
+        writeToFile(markdown);
+    });
+};
 
 // Function call to initialize app
-//init();
+init();

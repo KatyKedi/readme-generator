@@ -1,8 +1,8 @@
 
-  # ReadMe Generator
+  # title
 
   ## Description
-  Generates readmes
+  descrip
 
   ## Table of Contents
   1. [Installation](./##Installation)
@@ -13,20 +13,20 @@
   6. [Questions](./##Questions)
 
   ## Installation
-  Install it
+  install
 
   ## Usage
-  Use it
+  usage
 
   ## License
-  a
+  other license
 
   ## Contributing
-  undefined
+  contrib
 
   ## Tests
-  Test it
+  test
 
   ## Questions
-  My GitHub account: [KatyKedi](https://github.com/KatyKedi)
-  If you have questions about this application, you can reach me at kak@ucsb.edu
+  My GitHub account: [user](https://github.com/user)
+  If you have questions about this application, you can reach me at email
