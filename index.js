@@ -1,6 +1,5 @@
 // Include packages needed for this application
 const inquirer = require('inquirer');
-const { stubFalse } = require('lodash');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
@@ -125,7 +124,6 @@ const promptUser = () => {
         }
     ])
     .then(readmeData => {
-        console.log(readmeData);
         return(readmeData);
     })
 };
@@ -136,7 +134,7 @@ const promptLicense = readmeData => {
             {
                 type: 'input',
                 name: 'license',
-                message: 'Please enter your license',
+                message: 'Please enter your license:',
                 validate: nameInput => {
                     if (nameInput) {
                         return true;
@@ -150,6 +148,8 @@ const promptLicense = readmeData => {
             readmeData.license = licenseData.license;
             return readmeData;
         })
+    } else {
+        return readmeData;
     }
 };
 
