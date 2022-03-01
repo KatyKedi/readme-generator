@@ -1,3 +1,4 @@
+// Set up an array to hold data objects for each license
 const licenseDataSet = [
   {
     name: "MIT License (MIT)",
@@ -26,15 +27,18 @@ const licenseDataSet = [
   {
     name: "Internet Systems Consortium License (ISC)",
     description: "The ISC License is the most permissive open source license family free software license like the MIT License and the BSD License. It was created by the Internet Software Consortium (Internet Systems Consortium). The ISC License is basically a ‘stripped down’ version of the MIT licenses and simplified BSD 2-Clause licenses, removing some language that is no longer necessary. The ISC open source license is functional equivalent to the MIT License. The only difference lies in the license language. The ISC License has only two requirements and they are the same as those of the MIT License. Users must include the original copyright notice and a copy of the license itself while copying or modifying the licensed code. ISC permissive license users are free to use the code commercially, modify the code and distribute the code. OpenBSD operating system and OpenStreetMap free to use map of the world OSS projects use the ISC license.",
-    badge: "./images/mit_logo.png",
+    badge: "./images/isc_logo.png",
     link: "https://www.isc.org/licenses/"
   }
 ];
 
 function checkLicense(readmeData) {
+  // For every one of the five licenses
   for (i=0; i < licenseDataSet.length; i++) {
     licenseData = licenseDataSet[i];
+    // If the license matches the user's choice
     if (readmeData.license === licenseData.name) {
+      // Run functions to add license data to the markdown file
       renderLicenseBadge(licenseData);
       renderLicenseLink(licenseData);
       renderLicenseSection(licenseData);
@@ -43,19 +47,16 @@ function checkLicense(readmeData) {
 };
 
 // Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
 function renderLicenseBadge(licenseData) {
   return badge = licenseData.badge;
 }
 
 // Create a function that returns the license link
-// If there is no license, return an empty string
 function renderLicenseLink(licenseData) {
   return link = licenseData.link;
 }
 
 // Create a function that returns the license section of README
-// If there is no license, return an empty string
 function renderLicenseSection(licenseData) {
   const name = licenseData.name;
   const description = licenseData.description;
@@ -98,11 +99,11 @@ function generateMarkdown(readmeData) {
   ${readmeData.test}
 
   ## Questions
-  My GitHub account: [${readmeData.username}](https://github.com/${readmeData.username})
-  If you have questions about this application, you can reach me at ${readmeData.email}
+  * My GitHub account: [${readmeData.username}](https://github.com/${readmeData.username})
+  * If you have questions about this application, you can reach me at ${readmeData.email}
 `;
 }
 
-
+// Export the generateMarkdown function
 module.exports = generateMarkdown;
  

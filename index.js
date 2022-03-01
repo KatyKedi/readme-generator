@@ -3,12 +3,16 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
+// Prompt user with a list of questions about their project
 const promptUser = () => {
+    // Utilize the inquirer package to prompt the user
     return inquirer.prompt([
         {
+            // User inputs a value for the project title
             type: 'input',
             name: 'title',
             message: 'What is the title of your project?',
+            // Checks whether or not the user input is blank
             validate: nameInput => {
                 if (nameInput) {
                     return true;
@@ -58,6 +62,7 @@ const promptUser = () => {
             }
         },
         {
+            // User is provided with a list of license options
             type: 'list',
             name: 'license',
             message: 'Please select your license.',
@@ -123,12 +128,14 @@ const promptUser = () => {
             } 
         }
     ])
+    // After the data is aqcuired, it gets returned
     .then(readmeData => {
         return(readmeData);
     })
 };
 
 const promptLicense = readmeData => {
+    // This function runs if the license choice is 'Other'
     if (readmeData.license === 'Other') {
         return inquirer.prompt(
             {
@@ -145,6 +152,7 @@ const promptLicense = readmeData => {
                 } 
             }
         ).then(licenseData => {
+            // Update the data to have a new value for license
             readmeData.license = licenseData.license;
             return readmeData;
         })
@@ -155,14 +163,14 @@ const promptLicense = readmeData => {
 
 // Create a function to write README file
 function writeToFile(markdown) {
-    fs.writeFile('./README.md', markdown, err => {
+    fs.writeFile('./READMEex.md', markdown, err => {
         if (err) throw new Error(err);
 
-        console.log('Page created! Check out README.md in this directory to see it!');
+        console.log('Page created! Check out READMEex.md in this directory to see it!');
     });
 }
 
-// TODO: Create a function to initialize app
+// Create a function to initialize app
 function init() {
     promptUser()
     .then(promptLicense)
