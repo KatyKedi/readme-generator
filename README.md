@@ -10,4 +10,4 @@ This application allows the user to create a professional README.md for their pr
   * Markdown file is generated at READMEex.md
 
 ## Application Preview
-  ![application preview](https://github.com/KatyKedi/readme-generator/blob/main/images/readme-generator.png?raw=true)
+  [![application preview](https://github.com/KatyKedi/readme-generator/blob/main/images/readme-generator.png?raw=true)](https://github.com/KatyKedi/readme-generator/blob/main/assets/readme-generator.webm "Walkthrough video")
